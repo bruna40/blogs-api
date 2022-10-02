@@ -1,5 +1,5 @@
-const Categories = (sequelize, DataTypes) => {
-  const Categories = sequelize.define('Category', {
+const Category = (sequelize, DataTypes) => {
+  const Category = sequelize.define('Category', {
     id: {
         allowNull: false,
         autoIncrement: true,
@@ -12,11 +12,13 @@ const Categories = (sequelize, DataTypes) => {
     timestamps: false,
   });
 
-  Categories.associate = (models) => {
-    Categories.belongsTo(models.PostCategory, {
+  Category.associate = (models) => {
+    Category.belongsTo(models.PostCategory, {
       foreignKey: 'category_id',
     });
   };
 
   return Category;
 };
+
+module.exports = Category;

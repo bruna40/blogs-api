@@ -13,7 +13,7 @@ const BlogPost = (sequelize, DataTypes) => {
     content: {
       type: DataTypes.STRING
     },
-    user_id: {
+    userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -39,3 +39,5 @@ const BlogPost = (sequelize, DataTypes) => {
     };
     return BlogPost;
   }
+
+  module.exports = BlogPost;
