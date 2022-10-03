@@ -1,12 +1,12 @@
 const express = require('express');
-const LoginRoute = require('./routes/LoginRoute');
+const UserRoute = require('./routes/UserRoute');
 
 // ...
 
 const app = express();
 
 app.use(express.json());
-app.use('/login', LoginRoute);
+app.use(UserRoute);
 
 // ...
 

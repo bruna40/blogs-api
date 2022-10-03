@@ -1,14 +1,17 @@
-// function verifyJWT(req, res, next) {
-//   const token = req.headers['x-access-token'];
-//   if (!token) return res.status(401).json({ auth: false, message: 'No token provided.' });
+require('dotenv/config');
+const jwt = require('jsonwebtoken');
 
-//   jwt.verify(token, process.env.SECRET, (err, decoded) => {
-//     if (err) return res.status(500).json({ auth: false, message: 'Failed to authenticate token.' });
+function verifyJWT(req, res, next) {
+  const token = req.headers['x-access-token'];
+  if (!token) return res.status(401).json({ auth: false, message: 'Token not found' });
 
-//     // if everything good, save to request for use in other routes
-//     req.userId = decoded.id;
-//     next();
-//   });
-// }
+  jwt.verify(token, process.env.SECRET, (err, decoded) => {
+    if (err) return res.status(500).json({ auth: false, message: 'Expired or invalid token' });
 
-// module.exports = verifyJWT;
+    // if everything good, save to request for use in other routes
+    req.userId = decoded.id;
+    next();
+  });
+}
+
+module.exports = verifyJWT;
