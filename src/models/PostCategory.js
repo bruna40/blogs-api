@@ -26,7 +26,7 @@ const PostCategory = (sequelize, DataTypes) => {
     PostCategory.hasMany(models.BlogPost, {
       foreignKey: 'post_id',
     });
-    PostCategory.hasMany(models.Categories, {
+    PostCategory.hasMany(models.Category, {
       foreignKey: 'category_id',
     });
   };
