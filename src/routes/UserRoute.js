@@ -1,12 +1,14 @@
 const express = require('express');
 const UserController = require('../controllers/UserController');
-// const validToken = require('../middlewares/validToken');
-const verifyToken = require('../middlewares/verifyJWT');
+const verifyJWT = require('../middlewares/verifyJWT');
+const registerValidation = require('../middlewares/registerValidation');
 
 const UserRouter = express.Router();
 
 UserRouter
     .post('/login', UserController.login)
-    .get('/user', verifyToken, UserController.userAll);
+    .post('/user', registerValidation, UserController.register)
+    .get('/user', verifyJWT, UserController.userAll)
+    .get('/user/:id', verifyJWT, UserController.userById);
 
 module.exports = UserRouter;

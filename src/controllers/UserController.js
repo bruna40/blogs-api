@@ -17,11 +17,28 @@ class UserController {
         const token = generateToken(user.dataValues);
         return res.status(200).json({ token });
     }
+
+    static async register(req, res) {
+        const { displayName, email, password, image } = req.body;
+        const user = await User.create({ displayName, email, password, image });
+        const token = generateToken(user.dataValues);
+        return res.status(201).json({ token });
+    }
     
     static async userAll(req, res) {
         const users = await User.findAll();
         return res.status(200).json(users);
     }  
+
+    static async userById(req, res) {
+        const { id } = req.params;
+        const user = await User.findByPk(id);
+        if (!user) {
+            return res.status(404).json({ message: 'User does not exist' });
+        }
+
+        return res.status(200).json(user);
+    }
 }
 
 module.exports = UserController;
