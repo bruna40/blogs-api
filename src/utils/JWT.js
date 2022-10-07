@@ -1,13 +1,11 @@
 require('dotenv/config');
 const jwt = require('jsonwebtoken');
 
-const secret = process.env.JWT_SECRET || 'suaSenha';
+const secret = process.env.JWT_SECRET;
 
-const generateToken = ({ id, email, displayName }) => {
+const generateToken = (email) => {
     const payload = {
-        id,
         email,
-        displayName,
     };
     const jwtCongig = {
         expiresIn: '15m',
@@ -17,4 +15,7 @@ const generateToken = ({ id, email, displayName }) => {
     return token;
 };
 
-module.exports = generateToken;
+module.exports = {
+    generateToken,
+
+};
