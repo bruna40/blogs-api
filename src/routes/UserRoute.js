@@ -6,8 +6,8 @@ const registerValidation = require('../middlewares/registerValidation');
 const UserRouter = express.Router();
 
 UserRouter
-    .post('/user', registerValidation, UserController.register)
     .get('/user', auth, UserController.getAll)
+    .post('/user', registerValidation, UserController.register)
     .get('/user/:id', auth, UserController.getById);
 
 module.exports = UserRouter;

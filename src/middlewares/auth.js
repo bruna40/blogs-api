@@ -3,11 +3,11 @@ require('dotenv');
 const { User } = require('../models');
 
 const auth = async (req, res, next) => {
-  const { authorization } = req.headers;
-  if (!authorization) {
+  const token = req.headers.authorization;
+  if (!token) {
     return res.status(401).json({ message: 'Token not found' });
   } 
-    jwt.verify(authorization, process.env.JWT_SECRET, async (err, decoded) => {
+    jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
       if (err) {
         return res.status(401).json({ message: 'Expired or invalid token' });
       } 

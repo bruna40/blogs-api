@@ -1,11 +1,23 @@
-// const { User } = require('../models');
+require('dotenv');
+const jwt = require('jsonwebtoken');
 
-// class UserService {
-//   static async authenticate({ email, password }) {
-//     if (!email || !password) {
+const { User } = require('../models');
 
-//     }
-// }
-// }
+const decode = (token) => {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    return decoded.data;
+};
 
-// module.exports = UserService;
+class UserService {
+    static async idToken(xablau) {
+        const { id } = await User.findOne({ where: { email: decode(xablau) } });
+        return id;
+    }
+
+    static async deleteToken(xablau) {
+        const userId = await this.idToken(xablau);
+        await User.destroy({ where: { id: userId } });
+    }
+}
+
+module.exports = UserService;
