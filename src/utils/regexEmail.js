@@ -1,6 +1,5 @@
-const regexEmail = (email) => {
-    const regex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
-    return regex.test(email);
-};
-
-module.exports = regexEmail;
+module.exports = (email) => {
+    const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+  
+    return emailRegex.test(email);
+  };

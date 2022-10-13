@@ -1,5 +1,6 @@
 const { User } = require('../models');
 const generateToken = require('../utils/generateToken');
+const UserService = require('../services/UserService');
 
 class UserController {
   static async getAll(_req, res) {
@@ -30,10 +31,19 @@ class UserController {
     if (userExists) {
       return res.status(409).json({ message: 'User already registered' });
     }
+
     await User.create({ displayName, email, password, image });
 
     const token = generateToken(email);
     return res.status(201).json({ token });
+  }
+
+  static async delete(req, res) {
+    const { authorization } = req.headers;
+
+    await UserService.del(authorization);
+
+    return res.sendStatus(204);
   }
 }
 
